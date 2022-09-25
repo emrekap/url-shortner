@@ -6,6 +6,8 @@ Local env setup
 - `cd url-shortner`
 - `npm i`
 - `npm run envgen`
+- `docker-compose up`
+- `npx prisma migrate deploy` 
 - `npm run start:dev`
 
 ---
