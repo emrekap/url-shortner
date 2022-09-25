@@ -1,0 +1,16 @@
+version: "2.1"
+
+services:
+  url-shortner-service-db:
+    container_name: url-shortner-service-db
+    env_file:
+      - ./env/.db.env.local
+    image: postgres:11.9-alpine
+    ports:
+      - ${APP_DB_DOCKER_HOST_PORT}:5432
+    volumes:
+      - main-postgres-db-data:/var/lib/postgresql/data
+
+volumes:
+  main-postgres-db-data: {}
+# TODO: look into setting up NFS volumes for improved dev performance https://www.jeffgeerling.com/blog/2020/revisiting-docker-macs-performance-nfs-volumes

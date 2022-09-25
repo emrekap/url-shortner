@@ -1,0 +1,27 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Url {
+  id        String    @id @db.VarChar(36)
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  longUrl   String    @unique @map("long_url") @db.VarChar(256)
+  urlCode   String    @unique @map("url_code") @db.VarChar(12)
+  urlStats  UrlStats?
+
+  @@map("urls")
+}
+
+model UrlStats {
+  urlId         String    @id @db.VarChar(36)
+  url           Url       @relation(fields: [urlId], references: [id])
+  lastVisitedAt DateTime? @map("last_visited_at") @db.Timestamptz(6)
+  visitCount    Int       @default(0)
+
+  @@map("url_stats")
+}
